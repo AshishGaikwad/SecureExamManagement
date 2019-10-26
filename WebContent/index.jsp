@@ -47,7 +47,8 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
-						<form action="index.html" method="post">
+					<div style="color:red" id="err_msg"></div>
+						<form action="#" method="post">
 							<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
@@ -84,7 +85,7 @@
 								</div>
 								<div class="col-sm-4 text-right">
 									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+									<button type="submit" id="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
 								</div>
 							</div>	
 						</form>
@@ -111,6 +112,7 @@
 		
 		<!-- Theme Initialization Files -->
 		<script src="assets/javascripts/theme.init.js"></script>
-
+		<script src="res/js/index.js"></script>
+		
 	</body><img src="http://www.ten28.com/fref.jpg">
 </html>
