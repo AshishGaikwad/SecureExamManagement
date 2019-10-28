@@ -102,6 +102,20 @@ public static void main(String[] args) {
 	lScreenEntity.setUserId(2);
 	lScreenEntity.setRowstate(1);
 	
+	
+//	SELECT screens.* from users_role_mapping  
+//	INNER JOIN role 
+//	ON 
+//	users_role_mapping.r_id = role.role_id
+//	INNER JOIN role_screen_mapping
+//	ON 
+//	role.role_id = role_screen_mapping.r_id
+//	INNER JOIN screens
+//	ON
+//	role_screen_mapping.s_id = screens.screen_id
+//	WHERE users_role_mapping.id = '1'
+//	;
+	
 	System.out.println("User Screen Map Created == "+lRolesMapping.create(lScreenEntity));
 }
 }
