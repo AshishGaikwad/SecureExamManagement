@@ -177,7 +177,7 @@ public class RolesDaoImpl implements RolesDao,OperationDao<RoleEntity> {
 	
 
 	@Override
-	public List<RoleEntity> getAll(String... p) {
+	public List<RoleEntity> get(String... p) {
 		// TODO Auto-generated method stub
 		return null;
 	}

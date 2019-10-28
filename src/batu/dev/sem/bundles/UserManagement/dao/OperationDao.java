@@ -8,5 +8,5 @@ public interface OperationDao<C> {
 	public int delete(C pEntity);
 	public C get(long pId);
 	public C get(String pName);
-	public List<C> getAll(String ...p);
+	public List<C> get(String ...p);
 }
