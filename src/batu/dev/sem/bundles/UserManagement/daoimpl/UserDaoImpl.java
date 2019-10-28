@@ -3,6 +3,7 @@ package batu.dev.sem.bundles.UserManagement.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import batu.dev.sem.bundles.UserManagement.dao.UserDao;
 import batu.dev.sem.bundles.UserManagement.entity.UserEntity;
@@ -24,6 +25,8 @@ public class UserDaoImpl implements UserDao {
 						+ "`email`, " + "`mobile`, " + "`status`, " + "`c_by`, "
 						+ "`c_at`, `u_by`, `u_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				lConnection = MySQLConnector.getConnection();
+
+				lConnection.setAutoCommit(false);
 				lPreparedStatement = lConnection.prepareStatement(lQuery);
 
 				lPreparedStatement.setString(1, pUserEntity.getFullName());
@@ -38,9 +41,13 @@ public class UserDaoImpl implements UserDao {
 				lPreparedStatement.setLong(9, pUserEntity.getUpdatedBy());
 				lPreparedStatement.setString(10, pUserEntity.getUpdatedAt());
 				int result = lPreparedStatement.executeUpdate();
+				lConnection.commit();
+				// System.out.println(result + "= rESs");
 
-				System.out.println(result + "= rESs");
-
+				lConnection = null;
+				lPreparedStatement = null;
+				lResultSet = null;
+				lQuery = "";
 				if (result != 0)
 					return 1;
 				else
@@ -50,9 +57,23 @@ public class UserDaoImpl implements UserDao {
 			}
 
 		} catch (Exception e) {
+			try {
+				lConnection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			lQuery = "";
+
 			return 2;
 		} finally {
-
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			lQuery = "";
 		}
 	}
 
@@ -97,14 +118,27 @@ public class UserDaoImpl implements UserDao {
 				lUserEntity.setUpdatedAt(lResultSet.getString(10));
 				lUserEntity.setUpdatedBy(lResultSet.getInt(11));
 				System.out.println(lUserEntity.toString());
+				
+				lConnection = null;
+				lPreparedStatement = null;
+				lResultSet = null;
 				return lUserEntity;
 			} else {
-				System.out.println(null + "");
+				lConnection = null;
+				lPreparedStatement = null;
+				lResultSet = null;
 				return null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
 			return null;// TODO: handle exception
+		}finally {
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
 		}
 
 	}
