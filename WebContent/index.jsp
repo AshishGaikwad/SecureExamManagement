@@ -48,11 +48,11 @@
 					</div>
 					<div class="panel-body">
 					<div style="color:red" id="err_msg"></div>
-						<form action="#" method="post">
+						<!-- <form action="#" method="post"> -->
 							<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" id="username" type="text" class="form-control input-lg" />
+									<input name="username" id="username" type="email" class="form-control input-lg" required/>
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -67,7 +67,7 @@
 									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">
-									<input name="pwd" id="password" type="password" class="form-control input-lg" />
+									<input name="pwd" id="password" type="password" class="form-control input-lg" required/>
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -84,11 +84,11 @@
 									</div> -->
 								</div>
 								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-									<button type="submit" id="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+									<button type="button" id="SubmitUser" class="btn btn-primary hidden-xs">Sign In</button>
+									<button type="button"  class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
 								</div>
 							</div>	
-						</form>
+						<!-- </form> -->
 					</div>
 				</div>
 			</div>
@@ -112,6 +112,11 @@
 		
 		<!-- Theme Initialization Files -->
 		<script src="assets/javascripts/theme.init.js"></script>
+		
+		
+		<!-- FUNCTIONAL JAVASCRIPTSS -->
+		<script src="res/js/config.js"></script>
+		<script src="res/js/util.js"></script>
 		<script src="res/js/index.js"></script>
 		
 	</body><img src="http://www.ten28.com/fref.jpg">

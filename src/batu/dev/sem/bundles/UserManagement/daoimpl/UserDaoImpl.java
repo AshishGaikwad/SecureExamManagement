@@ -38,15 +38,14 @@ public class UserDaoImpl implements UserDao {
 				lPreparedStatement.setLong(9, pUserEntity.getUpdatedBy());
 				lPreparedStatement.setString(10, pUserEntity.getUpdatedAt());
 				int result = lPreparedStatement.executeUpdate();
-				
+
 				System.out.println(result + "= rESs");
-				
-				if(result != 0)
+
+				if (result != 0)
 					return 1;
 				else
 					return 2;
-			}else
-			{
+			} else {
 				return 0;
 			}
 
@@ -110,22 +109,47 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	@Override
+	public int validateUser(String pEmail, String pPassword) {
+		try {
+			UserEntity lUserEntity = getUser(pEmail);
+
+			if (lUserEntity == null)
+				return 11;
+			else {
+				if (lUserEntity.getStatus() == 1) {
+					if (lUserEntity.getEmail().equalsIgnoreCase(pEmail)
+							&& lUserEntity.getPassword().equals(pPassword)) {
+						return 9;
+					} else {
+						return 8;
+					}
+				} else {
+					return 10;
+				}
+			}
+		} catch (Exception e) {
+			return 12;
+		}
+
+	}
+
 	public static void main(String[] args) {
 
 		UserDao lUserDao = new UserDaoImpl();
 
-		 UserEntity lUserEntity = new UserEntity();
-		
-		 lUserEntity.setFullName("Ashish Gaikwad");
-		 lUserEntity.setMobile("8976834278");
-		 lUserEntity.setEmail("ashishgaikwad.6268@gmail.com");
-		 lUserEntity.setStatus(1);
-		 lUserEntity.setPassword("Ashish@1997");
-		 lUserEntity.setCreatedAt("");
-		 lUserEntity.setCreatedBy(0);
-		 lUserEntity.setUpdatedAt("");
-		 lUserEntity.setUpdatedBy(0);
-		 lUserEntity.setDateOfBirth("07/09/1997");
+		UserEntity lUserEntity = new UserEntity();
+
+		lUserEntity.setFullName("Ashish Gaikwad");
+		lUserEntity.setMobile("8976834278");
+		lUserEntity.setEmail("ashishgaikwad.6268@gmail.com");
+		lUserEntity.setStatus(1);
+		lUserEntity.setPassword("Ashish@1997");
+		lUserEntity.setCreatedAt("");
+		lUserEntity.setCreatedBy(0);
+		lUserEntity.setUpdatedAt("");
+		lUserEntity.setUpdatedBy(0);
+		lUserEntity.setDateOfBirth("07/09/1997");
 
 		System.out.println(lUserDao.createUser(lUserEntity));
 

@@ -10,4 +10,7 @@ public interface UserDao
 	
 	public UserEntity getUser(long pUserId);
 	public UserEntity getUser(String pUserName);
+	
+	
+	public int validateUser(String pEmail,String pPassword);
 }
