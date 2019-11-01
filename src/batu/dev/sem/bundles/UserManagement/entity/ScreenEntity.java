@@ -6,6 +6,7 @@ public class ScreenEntity {
 	private String ScreenUrl;
 	private long  ScreenParentId;
 	private String ScreenMenuLevel;
+	private String ScreenMenuIcon;
 	private int Rowstate;
 	public long getScreenId() {
 		return ScreenId;
@@ -43,11 +44,20 @@ public class ScreenEntity {
 	public void setRowstate(int rowstate) {
 		Rowstate = rowstate;
 	}
+	
+	
+	
+	public String getScreenMenuIcon() {
+		return ScreenMenuIcon;
+	}
+	public void setScreenMenuIcon(String screenMenuIcon) {
+		ScreenMenuIcon = screenMenuIcon;
+	}
 	@Override
 	public String toString() {
 		return "ScreenEntity [ScreenId=" + ScreenId + ", ScreenName=" + ScreenName + ", ScreenUrl=" + ScreenUrl
-				+ ", ScreenParentId=" + ScreenParentId + ", ScreenMenuLevel=" + ScreenMenuLevel + ", Rowstate="
-				+ Rowstate + "]";
+				+ ", ScreenParentId=" + ScreenParentId + ", ScreenMenuLevel=" + ScreenMenuLevel + ", ScreenMenuIcon="
+				+ ScreenMenuIcon + ", Rowstate=" + Rowstate + "]";
 	}
 	
 	

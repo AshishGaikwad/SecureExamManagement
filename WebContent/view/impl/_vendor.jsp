@@ -7,6 +7,12 @@
 			<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
 			<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 			
+			
+						<script src="res/js/config.js"></script>
+						<script src="res/js/util.js"></script>
+
+			
+			
 			<!-- Specific Page Vendor -->
 			
 			<!-- Theme Base, Components and Settings -->
@@ -19,7 +25,6 @@
 			<script src="assets/javascripts/theme.init.js"></script>
 			
 			<!-- Preoject configuration and server realated js -->
-			<script src="res/js/config.js"></script>
-			<script src="res/js/util.js"></script>
+
 			
 		

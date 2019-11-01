@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 import batu.dev.sem.bundles.UserManagement.dao.OperationDao;
 import batu.dev.sem.bundles.UserManagement.dao.ScreenDao;
@@ -23,7 +26,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 
 			if(get(pEntity.getScreenName()) == null)
 			{
-			lQuery = "INSERT INTO `screens` (`screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate`) VALUES (NULL, ?, ?, ?, ?, ?)";
+			lQuery = "INSERT INTO `screens` (`screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate`,`screen_icon`) VALUES (NULL, ?, ?, ?, ?, ?,?)";
 			lConnection = MySQLConnector.getConnection();
 
 			lConnection.setAutoCommit(false);
@@ -34,6 +37,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 			lPreparedStatement.setLong(3, pEntity.getScreenParentId());
 			lPreparedStatement.setString(4, pEntity.getScreenMenuLevel());
 			lPreparedStatement.setLong(5, pEntity.getRowstate());
+			lPreparedStatement.setString(6, pEntity.getScreenMenuIcon());
 			
 			int result = lPreparedStatement.executeUpdate();
 			lConnection.commit();
@@ -90,7 +94,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 		try {
 			ScreenEntity lEntity = new ScreenEntity();
 			lConnection = MySQLConnector.getConnection();
-			lQuery = "SELECT `screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate` FROM `screens` where screen_id = '"
+			lQuery = "SELECT `screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate`,screens.`screen_icon` FROM `screens` where screen_id = '"
 					+ pId + "'";
 
 			lResultSet = lConnection.createStatement().executeQuery(lQuery);
@@ -102,7 +106,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 				lEntity.setScreenParentId(lResultSet.getLong(4));
 				lEntity.setScreenMenuLevel(String.valueOf(lResultSet.getInt(5)));
 				lEntity.setRowstate(lResultSet.getInt(6));
-				
+				lEntity.setScreenMenuIcon(lResultSet.getString(7));
 //				System.out.println(lEntity.toString());
 				
 				lConnection = null;
@@ -133,7 +137,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 		try {
 			ScreenEntity lEntity = new ScreenEntity();
 			lConnection = MySQLConnector.getConnection();
-			lQuery = "SELECT `screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate` FROM `screens` where screen_name = '"
+			lQuery = "SELECT `screen_id`, `screen_name`, `screen_url`, `screen_parent`, `screen_menu_level`, `rowstate`,screens.`screen_icon` FROM `screens` where screen_name = '"
 					+ pName + "'";
 
 			lResultSet = lConnection.createStatement().executeQuery(lQuery);
@@ -145,7 +149,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 				lEntity.setScreenParentId(lResultSet.getLong(4));
 				lEntity.setScreenMenuLevel(String.valueOf(lResultSet.getInt(5)));
 				lEntity.setRowstate(lResultSet.getInt(6));
-				
+				lEntity.setScreenMenuIcon(lResultSet.getString(7));
 //				System.out.println(lEntity.toString());
 				
 				lConnection = null;
@@ -178,19 +182,66 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 	}
 	
 	public static void main(String[] args) {
-		OperationDao<ScreenEntity> lDao = new ScreenDaoImpl();
+		ScreenDaoImpl lDao = new ScreenDaoImpl();
 		ScreenEntity lScreenEntity = new ScreenEntity();
 		
-		lScreenEntity.setScreenName("Create User");
-		lScreenEntity.setScreenParentId(1);
-		lScreenEntity.setScreenUrl("impl/CreateUser.jsp");
-		lScreenEntity.setScreenMenuLevel("0");
-		lScreenEntity.setRowstate(1);
+//		lScreenEntity.setScreenName("Create User");
+//		lScreenEntity.setScreenParentId(1);
+//		lScreenEntity.setScreenUrl("impl/CreateUser.jsp");
+//		lScreenEntity.setScreenMenuLevel("0");
+//		lScreenEntity.setRowstate(1);
 
+		Gson gson = new Gson();
+		System.out.println("Result screen  == "+gson.toJson(lDao.getScreenForUser(1)));
 		
-		System.out.println("Result  == "+lDao.create(lScreenEntity));
-		System.out.println("Result 2 == "+lDao.get("User Managemen"));
 		
+	}
+
+	@Override
+	public List<ScreenEntity> getScreenForUser(long l) {
+		try {
+			List<ScreenEntity> lEntityList = new ArrayList<>();
+			lConnection = MySQLConnector.getConnection();
+			lQuery = "SELECT screens.`screen_id`, screens.`screen_name`, screens.`screen_url`, screens.`screen_parent`, screens.`screen_menu_level`, screens.`rowstate`, screens.`screen_icon` from users_role_mapping INNER JOIN role ON users_role_mapping.r_id = role.role_id INNER JOIN role_screen_mapping ON role.role_id = role_screen_mapping.r_id INNER JOIN screens ON role_screen_mapping.s_id = screens.screen_id WHERE users_role_mapping.id = '"+l+"' ORDER BY screens.screen_id";
+
+			lResultSet = lConnection.createStatement().executeQuery(lQuery);
+
+			while (lResultSet.next()) {
+				ScreenEntity lEntity = new ScreenEntity();
+				lEntity.setScreenId(lResultSet.getLong(1));
+				lEntity.setScreenName(lResultSet.getString(2));
+				lEntity.setScreenUrl(lResultSet.getString(3));
+				lEntity.setScreenParentId(lResultSet.getLong(4));
+				lEntity.setScreenMenuLevel(String.valueOf(lResultSet.getInt(5)));
+				lEntity.setRowstate(lResultSet.getInt(6));
+				lEntity.setScreenMenuIcon(lResultSet.getString(7));
+				
+//				System.out.println(lEntity.toString());
+				lEntityList.add(lEntity);
+				
+				
+			}
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			return lEntityList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				lConnection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			return null;// TODO: handle exception
+		}finally {
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+		}
 	}
 
 }

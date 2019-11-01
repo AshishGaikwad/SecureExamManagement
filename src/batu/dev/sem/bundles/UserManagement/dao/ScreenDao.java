@@ -1,6 +1,10 @@
 package batu.dev.sem.bundles.UserManagement.dao;
 
-public interface ScreenDao {
+import java.util.List;
 
+import batu.dev.sem.bundles.UserManagement.entity.ScreenEntity;
+
+public interface ScreenDao {
+	public List<ScreenEntity> getScreenForUser(long pUserId);
 	 
 }
