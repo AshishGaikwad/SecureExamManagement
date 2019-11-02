@@ -2,11 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create User</title>
-</head>
+<%@ include file="../impl/_header.jsp" %>
 <body>
-	<h1>Hieee</h1>
+	
+	
+	
+	
 </body>
+<%@ include file="../impl/_vendor.jsp" %>
+<script src="<%=request.getContextPath() %>/res/js/user-management.js"></script>
 </html>

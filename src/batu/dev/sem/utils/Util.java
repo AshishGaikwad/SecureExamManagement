@@ -37,7 +37,8 @@ public class Util
 	public static void loadPage(HttpServletRequest lRequest,HttpServletResponse lResponse, String lPageName)
 	{
 		try {
-			lRequest.getRequestDispatcher("/view/"+lPageName).forward(lRequest, lResponse);
+			if(!lResponse.isCommitted())
+				lRequest.getRequestDispatcher("/view/"+lPageName).forward(lRequest, lResponse);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -229,9 +230,11 @@ public class Util
 	
 	
 	public static void main(String[] args) {
-		ScreenDaoImpl lScreenDaoImpl = new ScreenDaoImpl();
+//		ScreenDaoImpl lScreenDaoImpl = new ScreenDaoImpl();
+//		
+//		System.out.println(menuBuilder(lScreenDaoImpl.getScreenForUser(1)));
 		
-		System.out.println(menuBuilder(lScreenDaoImpl.getScreenForUser(1)));
+		System.err.println(Mailer.sendMail("ananyakakade10@gmail.com", "", "Message From Custom Application", "<h1>Hie Ananya Kakade, how are you??</h1><br><p>Mail send from my application. By ashish gaikwad</p>"));
 	}
 	
 }

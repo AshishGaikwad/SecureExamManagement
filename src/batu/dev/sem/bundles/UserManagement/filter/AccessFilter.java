@@ -10,6 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import batu.dev.sem.utils.Util;
 
 /**
  * Servlet Filter implementation class AccessFilter
@@ -28,11 +31,10 @@ public class AccessFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest lRequest = (HttpServletRequest) request;
 		HttpServletResponse lResponse = (HttpServletResponse) response;
+		HttpSession lHttpSession = lRequest.getSession();
+		String URI = lRequest.getRequestURI().replace(lRequest.getContextPath()+"","");
+
 		
-		String lPath = lRequest.getServletPath();
-		
-		System.out.println(lPath);
-		chain.doFilter(request, response);
 	}
 
 	/**

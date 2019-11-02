@@ -6,6 +6,8 @@
 			<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 			<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
 			<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+				<script src="assets/vendor/jquery-autosize/jquery.autosize.js"></script>
+		<script src="assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
 			
 			
 						<script src="res/js/config.js"></script>

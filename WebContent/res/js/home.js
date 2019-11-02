@@ -8,9 +8,5 @@ $(window).load(function() {
 
 
 function setUpUrl(pData) {
-	alert(atob(pData));
-	
 	$("#CentralFrame").attr("src",lBasePath+"/page_loader?token="+pData);
-	
-	
 }
