@@ -22,7 +22,11 @@ public class PageContoller extends HttpServlet {
 	Gson gson =  new Gson();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String lData = new String(Base64.getDecoder().decode(request.getParameter("token")));
+		System.out.println(request.getParameter("token").toString());
+		
+		String lData = new String(Base64.getDecoder().decode(request.getParameter("token").replace(" ", "+")));
+//		System.out.println("lData=="+lData);
+		
 		ScreenEntity lScreenEntity = (ScreenEntity) gson.fromJson(lData, ScreenEntity.class);
 		RequestDispatcher lRequestDispatcher = request.getRequestDispatcher("/view/"+lScreenEntity.getScreenUrl());
 		lRequestDispatcher.forward(request, response);

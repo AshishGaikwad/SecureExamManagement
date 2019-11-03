@@ -202,7 +202,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 		try {
 			List<ScreenEntity> lEntityList = new ArrayList<>();
 			lConnection = MySQLConnector.getConnection();
-			lQuery = "SELECT screens.`screen_id`, screens.`screen_name`, screens.`screen_url`, screens.`screen_parent`, screens.`screen_menu_level`, screens.`rowstate`, screens.`screen_icon` from users_role_mapping INNER JOIN role ON users_role_mapping.r_id = role.role_id INNER JOIN role_screen_mapping ON role.role_id = role_screen_mapping.r_id INNER JOIN screens ON role_screen_mapping.s_id = screens.screen_id WHERE users_role_mapping.id = '"+l+"' ORDER BY screens.screen_id";
+			lQuery = "SELECT screens.`screen_id`, screens.`screen_name`, screens.`screen_url`, screens.`screen_parent`, role_screen_mapping.`RWUD`, screens.`rowstate`, screens.`screen_icon` from users_role_mapping INNER JOIN role ON users_role_mapping.r_id = role.role_id INNER JOIN role_screen_mapping ON role.role_id = role_screen_mapping.r_id INNER JOIN screens ON role_screen_mapping.s_id = screens.screen_id WHERE users_role_mapping.id = '"+l+"' ORDER BY screens.screen_id";
 
 			lResultSet = lConnection.createStatement().executeQuery(lQuery);
 
@@ -212,11 +212,11 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 				lEntity.setScreenName(lResultSet.getString(2));
 				lEntity.setScreenUrl(lResultSet.getString(3));
 				lEntity.setScreenParentId(lResultSet.getLong(4));
-				lEntity.setScreenMenuLevel(String.valueOf(lResultSet.getInt(5)));
+				lEntity.setScreenMenuLevel(lResultSet.getString(5));
 				lEntity.setRowstate(lResultSet.getInt(6));
 				lEntity.setScreenMenuIcon(lResultSet.getString(7));
 				
-//				System.out.println(lEntity.toString());
+				System.out.println(lEntity.toString());
 				lEntityList.add(lEntity);
 				
 				
