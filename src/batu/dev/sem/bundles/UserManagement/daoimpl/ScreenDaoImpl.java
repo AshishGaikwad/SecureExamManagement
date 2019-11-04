@@ -243,5 +243,50 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 			lResultSet = null;
 		}
 	}
+	
+	@Override
+	public List<ScreenEntity> getScreenAll(String lCommand) {
+		try {
+			List<ScreenEntity> lEntityList = new ArrayList<>();
+			lConnection = MySQLConnector.getConnection();
+			lQuery = "SELECT screens.`screen_id`, screens.`screen_name`, screens.`screen_url`, screens.`screen_parent`, screens.`screen_menu_level`, screens.`rowstate`, screens.`screen_icon` from screens "+lCommand;
+
+			lResultSet = lConnection.createStatement().executeQuery(lQuery);
+
+			while (lResultSet.next()) {
+				ScreenEntity lEntity = new ScreenEntity();
+				lEntity.setScreenId(lResultSet.getLong(1));
+				lEntity.setScreenName(lResultSet.getString(2));
+				lEntity.setScreenUrl(lResultSet.getString(3));
+				lEntity.setScreenParentId(lResultSet.getLong(4));
+				lEntity.setScreenMenuLevel(lResultSet.getString(5));
+				lEntity.setRowstate(lResultSet.getInt(6));
+				lEntity.setScreenMenuIcon(lResultSet.getString(7));
+				lEntityList.add(lEntity);
+				
+				
+			}
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			return lEntityList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				lConnection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+			return null;// TODO: handle exception
+		}finally {
+			lConnection = null;
+			lPreparedStatement = null;
+			lResultSet = null;
+		}
+	}
 
 }
