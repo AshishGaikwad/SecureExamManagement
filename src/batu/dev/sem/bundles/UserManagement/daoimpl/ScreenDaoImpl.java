@@ -48,13 +48,13 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 			lResultSet = null;
 			lQuery = "";
 			if (result != 0)
-				return 1;
+				return 200;
 			else
-				return 2;
+				return 201;
 		
 			}else
 			{
-				return 3;
+				return 202;
 			}
 	} catch (Exception e) {
 		try {
@@ -68,7 +68,7 @@ public class ScreenDaoImpl implements ScreenDao,OperationDao<ScreenEntity> {
 		lResultSet = null;
 		lQuery = "";
 
-		return 2;
+		return 201;
 	} finally {
 		lConnection = null;
 		lPreparedStatement = null;

@@ -12,6 +12,11 @@ $(document).ready(function(){
 
 $(window).load(function(){
 	getParentScreen();
+	
+	
+	$("#RoleMappingTable").DataTable({
+		
+	});
 })
 
 

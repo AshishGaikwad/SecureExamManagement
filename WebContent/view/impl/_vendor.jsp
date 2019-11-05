@@ -8,6 +8,10 @@
 			<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 				<script src="assets/vendor/jquery-autosize/jquery.autosize.js"></script>
 		<script src="assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+		<script src="assets/vendor/select2/select2.js"></script>
+		<script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+		<script src="assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+		<script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
 			
 			
 						<script src="res/js/config.js"></script>

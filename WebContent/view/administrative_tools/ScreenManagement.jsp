@@ -30,7 +30,7 @@
 										Parent</label>
 									<div class="col-md-6">
 										<select class="form-control input-sm mb-md" id="ScreenParent">
-											
+											<option value="0">No Parent</option>
 										</select>
 									</div>
 								</div>
@@ -39,7 +39,7 @@
 									<label class="col-md-3 control-label" for="inputDefault">Screen
 										URL</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="ScreenName">
+										<input type="text" class="form-control" id="ScreenURL">
 									</div>
 								</div>
 
